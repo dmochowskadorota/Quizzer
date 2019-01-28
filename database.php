@@ -4,10 +4,10 @@
 $db_host = 'localhost';
 $db_name = 'quizzer';
 $db_user = 'root';
-$db_password = 'root123';
+$db_password = 'root';
 
 //Create mysqli object
-$mysqli = new mysqli ($db_host, $db_user, $db_name, $db_password);
+$mysqli = new mysqli ($db_host, $db_user, $db_password, $db_name);
 
 //Error Handler
 if($mysqli->connect_error) {

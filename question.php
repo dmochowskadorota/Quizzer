@@ -1,36 +1,41 @@
 <?php include 'database.php'; ?>
+<?php session_start(); ?>
 <?php
 	//Set question number
 	$number = (int) $_GET['n'];
-
+	
 	/*
-	* Get Question
+	*	Get total questions
 	*/
-	$query = "SELECT * FROM questions 
+	$query = "SELECT * FROM `questions`";
+	//Get result
+	$results = $mysqli->query($query) or die($mysqli->error.__LINE__);
+	$total = $results->num_rows;
+		
+	/*
+	*	Get Question
+	*/
+	$query = "SELECT * FROM `questions`
 				WHERE question_number = $number";
-
 	//Get result
 	$result = $mysqli->query($query) or die($mysqli->error.__LINE__);
-
+	
 	$question = $result->fetch_assoc();
-
+	
 	/*
-	* Get Choices
+	*	Get Choices
 	*/
-	$query = "SELECT * FROM choices 
+	$query = "SELECT * FROM `choices`
 				WHERE question_number = $number";
-
-	//Get result
+	//Get results
 	$choices = $mysqli->query($query) or die($mysqli->error.__LINE__);
-
 ?>
-
 <!DOCTYPE html>
 <html>
-<head>
+	<head>
 	<meta charset="utf-8" />
-	<title>PHP QUIZZER</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title>PHP Quizzer</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
 </head>
 <body>
 	<header>
@@ -40,9 +45,7 @@
 	</header>
 	<main>
 		<div class="container">
-			<div class="current">
-				Question 1 of 5
-			</div>
+			<div class="current">Question <?php echo $question['question_number']; ?> of <?php echo $total; ?></div>
 			<p class="question">
 				<?php echo $question['text']; ?>
 			</p>
@@ -52,13 +55,14 @@
 						<li><input name="choice" type="radio" value="<?php echo $row['id']; ?>" /><?php echo $row['text']; ?></li>
 					<?php endwhile; ?>
 				</ul>
-				<input type="submit" value="Submit">
+				<input type="submit" value="Submit" />
+				<input type="hidden" name="number" value="<?php echo $number; ?>" />
 			</form>
 		</div>
 	</main>
 	<footer>
 		<div class="container">
-			Copyrights &copy; 2019, PHP Quizzer
+			Copyright &copy; 2014, PHP Quizzer
 		</div>
 	</footer>
 </body>

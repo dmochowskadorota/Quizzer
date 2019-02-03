@@ -1,16 +1,13 @@
 <?php include 'database.php'; ?>
-
 <?php
- /*
- *Get Total Questions
+/*
+ *	Get Total Questions
  */
- $query = "SELECT * FROM questions";
-
+ $query ="SELECT * FROM questions";
  //Get results
  $results = $mysqli->query($query) or die($mysqli->error.__LINE__);
  $total = $results->num_rows;
 ?>
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -38,7 +35,7 @@
 	</main>
 	<footer>
 		<div class="container">
-			Copyright &copy; 2019, PHP Quizzer
+			Copyright &copy; 2014, PHP Quizzer
 		</div>
 	</footer>
 </body>
